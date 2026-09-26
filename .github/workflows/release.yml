@@ -1,0 +1,38 @@
+name: Build releases
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with: { name: idk-ide-web, path: dist }
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - uses: dtolnay/rust-toolchain@stable
+      - run: npm ci
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: IDK IDE ${{ github.ref_name }}
+          releaseBody: |
+            Windows installer for IDK IDE.
+            Download the Setup.exe file for the standard installation wizard.
+          releaseDraft: false
+          prerelease: false

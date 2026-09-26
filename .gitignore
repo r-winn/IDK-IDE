@@ -1,0 +1,13 @@
+node_modules
+dist
+.DS_Store
+*.local
+.env
+.env.*
+!.env.example
+nova-chat/
+Start Nova Chat.command
+*.tsbuildinfo
+src-tauri/target/
+vite.config.js
+vite.config.d.ts

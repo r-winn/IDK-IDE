@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "IDK IDE",
+  "version": "0.1.0",
+  "identifier": "com.idk.ide",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [{ "title": "IDK IDE", "width": 1440, "height": 900, "minWidth": 900, "minHeight": 600, "decorations": true, "resizable": true }],
+    "security": { "csp": "default-src 'self'; connect-src 'self' http://localhost:* http://127.0.0.1:* https:; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-eval'" }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "msi"],
+    "windows": { "wix": { "language": "en-US" }, "nsis": { "installMode": "currentUser" } }
+  }
+}
