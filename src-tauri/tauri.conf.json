@@ -16,6 +16,7 @@
   "bundle": {
     "active": true,
     "targets": ["nsis", "msi"],
+    "icon": ["icons/icon.ico", "icons/icon.png", "icons/icon.icns"],
     "windows": { "wix": { "language": "en-US" }, "nsis": { "installMode": "currentUser" } }
   }
 }
