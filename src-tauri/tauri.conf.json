@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "IDK IDE",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "identifier": "com.idk.ide",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -15,8 +15,19 @@
   },
   "bundle": {
     "active": true,
+    "createUpdaterArtifacts": true,
     "targets": ["nsis", "msi"],
     "icon": ["icons/icon.ico", "icons/icon.png", "icons/icon.icns"],
-    "windows": { "wix": { "language": "en-US" }, "nsis": { "installMode": "currentUser" } }
+    "publisher": "IDK Open Source",
+    "category": "DeveloperTool",
+    "shortDescription": "Local-first AI development environment",
+    "windows": { "allowDowngrades": false, "wix": { "language": "en-US" }, "nsis": { "installMode": "currentUser", "compression": "lzma", "startMenuFolder": "IDK IDE", "installerIcon": "icons/icon.ico", "uninstallerIcon": "icons/icon.ico" } }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDY1MkM3QjdBRjc3MUEyNDgKUldSSW9uSDNlbnNzWmZ5RnFIdVArTVBoQkY3d0RTeTMwRjdGM3NsUlRVRmQzdWZNaWhWRjc2bUIK",
+      "endpoints": ["https://github.com/r-winn/IDK-IDE/releases/latest/download/latest.json"],
+      "windows": { "installMode": "passive" }
+    }
   }
 }

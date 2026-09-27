@@ -7,18 +7,11 @@ permissions:
   contents: write
 
 jobs:
-  web:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: npm }
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-artifact@v4
-        with: { name: idk-ide-web, path: dist }
   windows:
     runs-on: windows-latest
+    env:
+      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,7 +25,9 @@ jobs:
           tagName: ${{ github.ref_name }}
           releaseName: IDK IDE ${{ github.ref_name }}
           releaseBody: |
-            Windows installer for IDK IDE.
-            Download the Setup.exe file for the standard installation wizard.
+            Download Setup.exe for the guided Windows installer, or MSI for managed deployment.
+            This community build is not yet code-signed, so Windows SmartScreen may show a warning.
           releaseDraft: false
           prerelease: false
+          includeUpdaterJson: true
+          updaterJsonPreferNsis: true
